@@ -12,34 +12,37 @@ HUNDRED = "hundred"
 def checkio(number):
 
     #replace this for solution
-	numStr = str(number)
-	numStrLength = len(numStr)
+	numStr = str(number)	#convert number to a string
+	numStrLength = len(numStr)	#store numStr length
 	
 	result = []		#empty result array
-	firstTenArray = FIRST_TEN	
-	secondTenArray = SECOND_TEN
-	otherTenArray = OTHER_TENS
+	firstTenArray = FIRST_TEN		#store FIRST_TEN array
+	secondTenArray = SECOND_TEN	#store SECOND_TEN array
+	otherTenArray = OTHER_TENS		#store OTHER_TENS array
 	
+	#check the number of digits(3 to 1)
 	if numStrLength == 3:
-		#find firstTen()
-		firstDig = int(numStr[0])
-		secondDig = int(numStr[1] + numStr[2])
-		secondSingleDig = int(numStr[1])
-		thirdDig = int(numStr[2])
+		firstDig = int(numStr[0])	#store first digit(0 to 9)
+		secondDig = int(numStr[1] + numStr[2])	#store second digit in the tens(e.g 11, 12)
+		secondSingleDig = int(numStr[1])	#store  second digit above 2
+		thirdDig = int(numStr[2])	#store third digit(0 to 9)
 		count = 1
+		#when appending, it call getWordNum function with 3 arguments)
+		#it returns the word for the first digit
 		result.append(getWordNum(count, firstDig, firstTenArray))
 		result.append(HUNDRED)
 		
+		#check 2nd and 3rd digit if they are zero, return nothing
 		if (numStr[1] == "0") and (numStr[2] == "0"):
 			print(result)
-		elif numStr[1] == "0":
+		elif numStr[1] == "0":		#if 3rd dig is 0, then get word for 3rd digit
 			result.append(getWordNum(count, thirdDig, firstTenArray))
 			print(result)
-		elif numStr[1] == "1":
+		elif numStr[1] == "1":	#if 2nd dig is 1, then get word for 2nd digit TENS
 			count = 10
 			result.append(getWordNum(count, secondDig, secondTenArray))
 			print(result)
-		elif numStr[1] > "1" and numStr[2] == "0":
+		elif numStr[1] > "1" and numStr[2] == "0":	#if 2nd dig is  greater 1 and 3rd is 0, then get word for 2nd digit OTHER_TENS
 			count = 2
 			result.append(getWordNum(count, secondSingleDig, otherTenArray))
 			print(result)
@@ -73,7 +76,10 @@ def checkio(number):
 		result.append(getWordNum(count, firstDig, firstTenArray))
 		print(result)
 	
+	#join result values with spaces in between
 	print(' '.join(result))
+
+#getWordNum function
 def getWordNum(count, numDig, numArray):
 	for num in numArray:
 		if count == numDig:
